@@ -18,7 +18,7 @@ class Campaign:
 		Returns:
 			(Campaign): copy of the Image.
 		"""
-		# Make new  image with primary polarization
+		# Make new campaign
 		newcampaign = Campaign(self.campaign_url)
 		return newcampaign
 
