@@ -77,6 +77,25 @@ class Campaign:
 			
 		return project_tw
 	
+	def Nupdates(self):
+		campaign_tabs = self.soup.find_all('span',{'class':'cf-badge cf-badge--dim'})
+		Nupdates = int(campaign_tabs[0].string)
+		
+		return Nupdates
+
+
+	def Ncomments(self):
+		campaign_tabs = self.soup.find_all('span',{'class':'cf-badge cf-badge--dim'})
+		Ncomments = int(campaign_tabs[1].string)
+		
+		return Ncomments
+
+
+	def Ninvestors(self):
+		campaign_tabs = self.soup.find_all('span',{'class':'cf-badge cf-badge--dim'})
+		Ninvestors = int(campaign_tabs[2].string)
+	
+		return Ninvestors
 	
 	
 	
