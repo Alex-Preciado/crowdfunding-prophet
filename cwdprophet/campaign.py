@@ -5,12 +5,12 @@ class Campaign:
 	'''
 	Attributes:
 	'''
-
+	
 	def __init__(self,campaign_url=None):
 		self.campaign_url = campaign_url
 	
 	def copy(self):
-
+	
 		"""
 		Return a copy of the Campaign object.
 		Args:
@@ -24,7 +24,7 @@ class Campaign:
 
 		
 def load_campaign(campaign_url,display=False):
-
+	
 	"""
 	Read in an image from a text file.
 	Args:
@@ -32,8 +32,8 @@ def load_campaign(campaign_url,display=False):
 	Returns:
 		(Campaign): loaded Campaign object
 	"""
-
-
+	
+	
 	print('Loaded campaign from:',campaign_url)
 	
 	return Campaign(campaign_url=campaign_url)
