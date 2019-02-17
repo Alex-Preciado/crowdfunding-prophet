@@ -16,7 +16,7 @@ class Campaign:
 		Args:
 			
 		Returns:
-			(Campaign): copy of the Image.
+			(Campaign): copy of the Campaign object.
 		"""
 		# Make new campaign
 		newcampaign = Campaign(self.campaign_url)
@@ -26,7 +26,7 @@ class Campaign:
 def load_campaign(campaign_url,display=False):
 	
 	"""
-	Read in an image from a text file.
+	Load a Crowdfunder campaign from a URL.
 	Args:
 		url (str): URL of campaign
 	Returns:
