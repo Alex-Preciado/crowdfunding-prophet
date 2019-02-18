@@ -141,7 +141,7 @@ class Campaign:
 		
 		browser.quit()
 		
-		return pledges, dates, names
+		return pledges[::-1], dates[::-1], names[::-1]
 		
 	
 	
