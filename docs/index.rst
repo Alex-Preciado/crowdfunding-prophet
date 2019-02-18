@@ -10,7 +10,7 @@ Welcome to cwdprophet's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   campaign
 
 Indices and tables
 ==================
