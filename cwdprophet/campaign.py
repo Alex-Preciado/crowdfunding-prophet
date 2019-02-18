@@ -142,8 +142,20 @@ class Campaign:
 		browser.quit()
 		
 		return pledges[::-1], dates[::-1], names[::-1]
-		
 	
+	
+	def report(self):
+		print('URL:',self.campaign_url)
+		print('Creator:',self.creator())
+		print('Location:',self.location())
+		print('Deadline:',self.deadline())
+		print('Duration:',self.duration(),'days')
+		print('Project FB:',self.fbpage())
+		print('Project TWitter:',self.twpage())
+		print('Nupdates:',self.Nupdates())
+		print('Ncomments:',self.Ncomments())
+		print('Ninvestors:',self.Ninvestors())
+		
 	
 
 def load_campaign(campaign_url,display=False):
