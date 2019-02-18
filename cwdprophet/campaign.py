@@ -14,7 +14,7 @@ class Campaign:
 	def __init__(self,campaign_url=None):
 		self.campaign_url = campaign_url
 		browser = start_browser('Safari','/usr/bin/safaridriver')
-		browser.get(campaign_url)
+		browser.get(self.campaign_url)
 		self.soup = BeautifulSoup(browser.page_source,'html.parser')
 		browser.quit()
 		
@@ -29,6 +29,7 @@ class Campaign:
 		"""
 		return Campaign(self.campaign_url)
 	
+	
 	def creator(self):
 		creator = self.soup.find('a',{'class':'cf-anchor cf-anchor--light-underline'}).text
 		
@@ -37,6 +38,7 @@ class Campaign:
 
 	def location(self):
 		return self.soup.find('a',{'class':'cf-anchor cf-anchor--light-underline','rel':'nofollow'}).text
+	
 	
 	def deadline(self):
 		
@@ -77,6 +79,7 @@ class Campaign:
 			
 		return project_tw
 	
+	
 	def Nupdates(self):
 		campaign_tabs = self.soup.find_all('span',{'class':'cf-badge cf-badge--dim'})
 		Nupdates = int(campaign_tabs[0].string)
@@ -97,7 +100,49 @@ class Campaign:
 	
 		return Ninvestors
 	
-	
+	def pledges(self):
+		
+		browser = start_browser('Safari','/usr/bin/safaridriver')
+		browser.get(self.campaign_url+'/backers')
+		
+		pledges = []
+		dates = []
+		names = []
+		more_supporters = True
+		
+		while more_supporters==True:
+			print('Scraping:',browser.current_url)
+			time.sleep(3)
+			soup = BeautifulSoup(browser.page_source,'html.parser')
+
+			tags = soup.find_all('article',{'class':'cf-well', 'data-well':'plain', 'data-well-spacing':'vertical'})
+
+			for tag in tags:
+				#print(tag.find("span", class_="cf-text--light").string.split()[-1][1:])
+				pledges.append(float(tag.find("span", class_="cf-text--light").string.split()[-1][1:].replace(',','')))
+
+			for tag in tags:
+				#print(tag.find("p", class_="cf-text").string)
+				dates.append(tag.find("p", class_="cf-text").string)
+
+			for tag in tags:
+				#print(tag.find("a"))
+				if tag.find("a")==None:
+					names.append('Anonymous')
+				else:
+					names.append(tag.find("a").string)
+
+			button = soup.find('a',{'class':'cf-button cf-button--small cf-button--hollow', 'data-icon-button':'next'})
+
+			if button is None:
+				more_supporters = False;
+			if button is not None:
+				browser.get(self.campaign_url+'/backers'+button['href'])
+		
+		browser.quit()
+		
+		return pledges, dates, names
+		
 	
 	
 
