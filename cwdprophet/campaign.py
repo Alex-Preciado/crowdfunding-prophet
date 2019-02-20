@@ -3,14 +3,13 @@
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from cwdprophet.scraper import Scraper
 import time
 
 
 class Campaign:
 	'''Campaign Class representing a Crowdfunder campaign.
-	
-	...
-		
+			
 	Attributes:
 	-----------
 	campaign_url : str
@@ -22,7 +21,7 @@ class Campaign:
 	
 	def __init__(self,campaign_url=None):
 		self.campaign_url = campaign_url
-		browser = start_browser('Safari','/usr/bin/safaridriver')
+		browser = Scraper().start_browser('Safari','/usr/bin/safaridriver')
 		browser.get(self.campaign_url)
 		self.soup = BeautifulSoup(browser.page_source,'html.parser')
 		browser.quit()
@@ -123,11 +122,12 @@ class Campaign:
 		campaign_tabs = self.soup.find_all('span',{'class':'cf-badge cf-badge--dim'})
 		Ninvestors = int(campaign_tabs[2].string)
 	
-		return Ninvestors
+		return Ninvestors		
+	
 	
 	def pledges(self):
 		
-		browser = start_browser('Safari','/usr/bin/safaridriver')
+		browser = Scraper().start_browser('Safari','/usr/bin/safaridriver')
 		browser.get(self.campaign_url+'/backers')
 		
 		pledges = []
@@ -204,13 +204,4 @@ def load_campaign(campaign_url,display=False):
 	return Campaign(campaign_url=campaign_url)
 
 
-def start_browser(browser=None,driver_binary=None):
-	if browser=='Safari':
-		browser = webdriver.Safari(executable_path=driver_binary);
-	if browser=='Firefox':
-		browser = webdriver.Firefox(executable_path=driver_binary);
-	if browser=='Chrome':
-		browser = webdriver.Chrome(executable_path=driver_binary);
-	
-	return browser
 
