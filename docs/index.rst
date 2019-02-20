@@ -11,6 +11,7 @@ Cwdprophet documentation!
    :caption: Contents:
 
    campaign
+   image
 
 Indices and tables
 ==================
