@@ -7,8 +7,17 @@ import time
 
 
 class Campaign:
-	'''
+	'''Campaign Class representing a Crowdfunder campaign.
+	
+	...
+		
 	Attributes:
+	-----------
+	campaign_url : str
+		The URL of the campaign.
+	soup : BeautifulSoup object
+		The HTML document represented as a nested structure
+	
 	'''
 	
 	def __init__(self,campaign_url=None):
@@ -20,17 +29,33 @@ class Campaign:
 		
 	
 	def copy(self):
-		"""
-		Return a copy of the Campaign object.
-		Args:
-			
+		"""Return a copy of the Campaign object.
+					
 		Returns:
 			(Campaign): copy of the Campaign object.
 		"""
+		
 		return Campaign(self.campaign_url)
 	
-	
+	def title(self):
+		"""Return the title of a campaign
+		
+		Returns:
+			title (str): Project title
+		"""
+		
+		#title = self.soup.title.text.strip(' ').strip('\n')
+		title = self.soup.title.text.split(' - ')[0].strip(' ')
+				
+		return title
+		
 	def creator(self):
+		'''Return the creator of the project.
+		
+		Args:
+			
+		'''
+		
 		creator = self.soup.find('a',{'class':'cf-anchor cf-anchor--light-underline'}).text
 		
 		return creator
@@ -145,6 +170,7 @@ class Campaign:
 	
 	
 	def report(self):
+		print('Campaign Title:',self.title())
 		print('URL:',self.campaign_url)
 		print('Creator:',self.creator())
 		print('Location:',self.location())
@@ -160,10 +186,12 @@ class Campaign:
 
 def load_campaign(campaign_url,display=False):
 	
-	"""
-	Load a Crowdfunder campaign from a URL.
-	Args:
-		campaign_url (str): URL of the campaign
+	"""Load a Crowdfunder campaign from a URL.
+	
+	Parameters:
+		campaign_url (str): The URL of the campaign
+		display (bool): Display campaign info
+	
 	Returns:
 		(Campaign): loaded Campaign object
 	"""
@@ -172,7 +200,7 @@ def load_campaign(campaign_url,display=False):
 	#browser.get(campaign_url)
 	#soup = BeautifulSoup(browser.page_source,'html.parser')
 	#browser.quit()
-		
+	
 	return Campaign(campaign_url=campaign_url)
 
 
