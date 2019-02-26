@@ -11,7 +11,7 @@ Cwdprophet documentation!
    :caption: Contents:
 
    campaign
-   image
+   scraper
 
 Indices and tables
 ==================
