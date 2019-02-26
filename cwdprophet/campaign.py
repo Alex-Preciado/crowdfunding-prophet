@@ -19,13 +19,26 @@ class Campaign:
 	
 	'''
 	
-	def __init__(self,campaign_url=None):
+	def __init__(self, campaign_url=None, browser=None, close_browser=False, quit_browser=True):
 		self.campaign_url = campaign_url
-		browser = Scraper().start_browser('Safari','/usr/bin/safaridriver')
-		browser.get(self.campaign_url)
-		self.soup = BeautifulSoup(browser.page_source,'html.parser')
-		browser.quit()
 		
+		if browser is None:
+			self.browser = Scraper().start_browser('Safari','/usr/bin/safaridriver')
+		else:
+			self.browser = browser
+			
+		self.close_browser = close_browser
+		self.quit_browser = quit_browser
+				
+		self.browser.get(self.campaign_url)
+		self.soup = BeautifulSoup(self.browser.page_source,'html.parser')
+		
+		if self.close_browser == True:
+			self.browser.quit()
+		
+		if self.quit_browser == True:
+			self.browser.quit()		
+
 	
 	def copy(self):
 		"""Return a copy of the Campaign object.
@@ -51,8 +64,8 @@ class Campaign:
 	def creator(self):
 		'''Return the creator of the project.
 		
-		Args:
-			
+		Returns:
+			creator (str): Project creator
 		'''
 		
 		creator = self.soup.find('a',{'class':'cf-anchor cf-anchor--light-underline'}).text
@@ -61,11 +74,22 @@ class Campaign:
 	
 
 	def location(self):
+		'''Return the location of the project.
+		
+		Returns:
+			location (str): Project location
+		'''
+
 		return self.soup.find('a',{'class':'cf-anchor cf-anchor--light-underline','rel':'nofollow'}).text
 	
 	
 	def deadline(self):
+		'''Return the deadline of the project.
 		
+		Returns:
+			deadline (date): Project deadline in day remaining
+		'''
+
 		report = self.soup.find('span',{'class':'cf-text--thick'}).text
 		day, month, year = report.split()[1:4]
 		date = ' '.join([day,month,year])
@@ -74,7 +98,12 @@ class Campaign:
 	
 	
 	def duration(self):
+		'''Return the lenght of the project.
 		
+		Returns:
+			duration (int): Project the lenght of the campaign in days
+		'''
+
 		report = self.soup.find('span',{'class':'cf-text--thick'}).text
 		duration = report.split()[-2]
 		return duration
@@ -125,10 +154,10 @@ class Campaign:
 		return Ninvestors		
 	
 	
-	def pledges(self):
+	def pledges(self,):
 		
-		browser = Scraper().start_browser('Safari','/usr/bin/safaridriver')
-		browser.get(self.campaign_url+'/backers')
+		#browser = Scraper().start_browser('Safari','/usr/bin/safaridriver')
+		self.browser.get(self.campaign_url+'/backers')
 		
 		pledges = []
 		dates = []
@@ -136,9 +165,9 @@ class Campaign:
 		more_supporters = True
 		
 		while more_supporters==True:
-			print('Scraping:',browser.current_url)
+			print('Scraping:',self.browser.current_url)
 			time.sleep(3)
-			soup = BeautifulSoup(browser.page_source,'html.parser')
+			soup = BeautifulSoup(self.browser.page_source,'html.parser')
 
 			tags = soup.find_all('article',{'class':'cf-well', 'data-well':'plain', 'data-well-spacing':'vertical'})
 
@@ -162,9 +191,10 @@ class Campaign:
 			if button is None:
 				more_supporters = False;
 			if button is not None:
-				browser.get(self.campaign_url+'/backers'+button['href'])
+				self.browser.get(self.campaign_url+'/backers'+button['href'])
 		
-		browser.quit()
+		if self.quit_browser == True:
+			self.browser.quit()
 		
 		return pledges[::-1], dates[::-1], names[::-1]
 	
@@ -184,7 +214,7 @@ class Campaign:
 		
 	
 
-def load_campaign(campaign_url,display=False):
+def load_campaign(campaign_url,browser,close_browser=False,quit_browser=True):
 	
 	"""Load a Crowdfunder campaign from a URL.
 	
@@ -201,7 +231,7 @@ def load_campaign(campaign_url,display=False):
 	#soup = BeautifulSoup(browser.page_source,'html.parser')
 	#browser.quit()
 	
-	return Campaign(campaign_url=campaign_url)
+	return Campaign(campaign_url=campaign_url,browser=browser,close_browser=close_browser,quit_browser=quit_browser)
 
 
 
