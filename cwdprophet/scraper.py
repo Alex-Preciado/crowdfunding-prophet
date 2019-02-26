@@ -4,7 +4,7 @@ from bs4 import BeautifulStoneSoup
 
 
 class Scraper:
-	'''Scraper Class representing a Crowdfunder campaign.
+	'''Scraper Class to track Crowdfunder campaigns.
 			
 	Attributes:
 	-----------
@@ -18,6 +18,16 @@ class Scraper:
 		
 	
 	def start_browser(self,browser,driver_binary):
+		"""Create a webdriver object with favorite browser
+		
+		Args:
+			browser (str): name of broser to use (Safari, Chrome or Firefox
+			driver_binary (str): location of webdriver
+			
+		Returns:
+			(browser): A webdriver object
+		"""
+
 		if browser=='Safari':
 			browser = webdriver.Safari(executable_path=driver_binary);
 		elif browser=='Firefox':
