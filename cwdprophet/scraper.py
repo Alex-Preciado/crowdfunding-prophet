@@ -1,7 +1,17 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulStoneSoup
 
+
 class Scraper:
+	'''Scraper Class representing a Crowdfunder campaign.
+			
+	Attributes:
+	-----------
+	platform : str
+		The name of the crodfunding platform.	
+	'''
+
 	
 	def __init__(self):
 		self.platform = 'Crowdfunder'
@@ -17,6 +27,31 @@ class Scraper:
 		else:
 			print('Not a valid option! Browser not recognized or supported!')
 		return browser
+
+	def crowdfunder_categories():
+		
+		# Open
+		browser = webdriver.Chrome();
+		projects_url = 'https://www.crowdfunder.co.uk/search/projects'
+		browser.get(projects_url)
+		
+		# Find the category dropdown menu
+		dropdown_menu = browser.find_element_by_class_name('cf-select__trigger')
+		dropdown_menu.click()
+
+		# Get a list of the categories and navigate to the second one
+		category_selector = browser.find_element_by_class_name('cf-select__dropdown')
+		category_obj = category_selector.find_elements_by_tag_name('li')
+		
+		category_list = [category.text.replace(' ','+') for category in category_obj]
+		del category_list[:1]
+		
+		browser.quit()
+		
+		return category_list
+	
+
+
 	
 	'''
 	def get_project_categories(projects_url):
