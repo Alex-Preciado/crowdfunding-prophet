@@ -23,8 +23,8 @@ Documenatation for this package is generated automatically using Sphinx and can 
 A web app is being developed to show the applications of cwdprophet. It is hosted in Heroku and can be found at [https://cwdprophet.herokuapp.com](https://cwdprophet.herokuapp.com).
 
 ## Author
-- Jorge Alejandro Preciado Lopez
+- **Jorge Alejandro Preciado Lopez**. Please check my [personal website](https://alex-preciado.github.io) for more details about me.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
