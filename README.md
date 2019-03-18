@@ -1,5 +1,5 @@
 # Crowdfunding Prophet
-Tool for producing high quality forecasts for time series data from crowdfunding campaigns in []
+Tool for producing high quality forecasts for time series data from crowdfunding campaigns in Crowdfunder ([https://www.crowdfunder.co.uk](https://www.crowdfunder.co.uk)).
 
 
 ## Examples
@@ -14,7 +14,7 @@ Tool for producing high quality forecasts for time series data from crowdfunding
 
 
 
-## Doumentation
+## Documentation
 Documenatation for this package is generated automatically using Sphinx and can be found here: [https://crowdfunding-prophet.readthedocs.io/en/latest/](https://crowdfunding-prophet.readthedocs.io/en/latest/).
 
 ## Web Application
