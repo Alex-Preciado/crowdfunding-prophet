@@ -1,7 +1,8 @@
 # Crowdfunding Prophet
 Tool for producing high quality forecasts for time series data from crowdfunding campaigns in Crowdfunder ([https://www.crowdfunder.co.uk](https://www.crowdfunder.co.uk)).
 
-![alt text](https://github.com/Alex-Preciado/crowdfunding-prophet/blob/master/img/crowdfunding02.jpg "Crowdfunding Image")
+
+<img src="img/crowdfunding02.jpg" alt="Crowdfunding Image" width="50%"/>
 
 ## Examples
 
